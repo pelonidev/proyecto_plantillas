@@ -1,15 +1,13 @@
 const theme = {
   cssVariables: {
-    'color-primary': '#0a6fb7',
-    'color-hero-start': '#0a6fb7',
-    'color-hero-end': '#083e6b',
-    'color-background': '#f2f8fc',
-    'color-section-muted': '#e7f1f8',
-    'color-text': '#0f2a3d',
-    'color-text-muted': '#5a7286',
-    'color-border': '#c9d7e3',
-    'font-family': "'Poppins', 'Inter', sans-serif",
-    'font-display': "'Nunito', 'Poppins', sans-serif"
+    'color-primary': '#0c4a6e',
+    'color-secondary': '#082f49',
+    'color-accent': '#38bdf8',
+    'color-background': '#f0f9ff',
+    'color-surface': '#ffffff',
+    'color-muted': '#bae6fd',
+    'color-text': '#0f172a',
+    'font-family': "'Nunito', 'Inter', sans-serif"
   }
 };
 

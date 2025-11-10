@@ -11,135 +11,107 @@ const logo = computed(() => new URL('./assets/logo.svg', import.meta.url).href);
 <template>
   <div class="page">
     <header class="hero">
-      <div class="container">
-        <nav class="nav">
-          <a class="nav__brand" href="#inicio">
-            <img :src="logo" :alt="businessInfo.name" />
-            <div>
-              <span>{{ businessInfo.name }}</span>
-              <small>{{ businessInfo.tagline }}</small>
-            </div>
-          </a>
-          <ul>
-            <li v-for="link in businessInfo.navigation" :key="link.label">
-              <a :href="link.href">{{ link.label }}</a>
+      <div class="hero__overlay"></div>
+      <div class="hero__content container">
+        <div class="hero__info">
+          <img class="hero__logo" :src="logo" :alt="`${businessInfo.name} logo`" />
+          <p class="hero__tagline">{{ businessInfo.tagline }}</p>
+          <h1>{{ businessInfo.hero.title }}</h1>
+          <p class="hero__subtitle">{{ businessInfo.hero.subtitle }}</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#contacto">{{ businessInfo.hero.ctaPrimary }}</a>
+            <a class="btn btn--ghost" href="#servicios">{{ businessInfo.hero.ctaSecondary }}</a>
+          </div>
+          <ul class="hero__highlights">
+            <li v-for="highlight in businessInfo.highlights" :key="highlight.title">
+              <h3>{{ highlight.title }}</h3>
+              <p>{{ highlight.description }}</p>
             </li>
           </ul>
-          <a class="nav__cta" :href="`tel:${businessInfo.contact.phone}`">{{ businessInfo.contact.phone }}</a>
-        </nav>
-
-        <div class="hero__content" id="inicio">
-          <div class="hero__text">
-            <p class="hero__eyebrow">{{ businessInfo.hero.eyebrow }}</p>
-            <h1>{{ businessInfo.hero.title }}</h1>
-            <p>{{ businessInfo.hero.description }}</p>
-            <div class="hero__actions">
-              <a class="btn btn--primary" :href="businessInfo.hero.primaryCta.href">{{ businessInfo.hero.primaryCta.label }}</a>
-              <a class="btn btn--ghost" :href="businessInfo.hero.secondaryCta.href">{{ businessInfo.hero.secondaryCta.label }}</a>
-            </div>
-            <ul class="hero__badges">
-              <li v-for="badge in businessInfo.hero.badges" :key="badge">{{ badge }}</li>
-            </ul>
-          </div>
-          <div class="hero__card">
-            <h2>{{ businessInfo.booking.title }}</h2>
-            <p>{{ businessInfo.booking.description }}</p>
-            <div class="hero__slots">
-              <div v-for="slot in businessInfo.booking.slots" :key="slot.label">
-                <span>{{ slot.label }}</span>
-                <strong>{{ slot.value }}</strong>
-              </div>
-            </div>
-            <a class="btn btn--surface" :href="businessInfo.hero.primaryCta.href">{{ businessInfo.booking.button }}</a>
-          </div>
+        </div>
+        <div class="hero__card">
+          <h2>Agenda tu servicio</h2>
+          <p>Indícanos qué necesitas y te responderemos en menos de 2 horas.</p>
+          <ul>
+            <li>
+              <span>📞</span>
+              <span>{{ businessInfo.contact.phone }}</span>
+            </li>
+            <li>
+              <span>✉️</span>
+              <span>{{ businessInfo.contact.email }}</span>
+            </li>
+            <li>
+              <span>📍</span>
+              <span>{{ businessInfo.contact.address }}</span>
+            </li>
+            <li>
+              <span>🕒</span>
+              <span>{{ businessInfo.contact.schedule }}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </header>
 
     <main>
-      <section id="servicios" class="section section--services">
+      <section id="servicios" class="section container">
+        <header class="section__header">
+          <h2>Servicios especializados</h2>
+          <p>
+            Combinamos experiencia técnica y tecnología avanzada para mantener tu vehículo seguro y
+            en perfecto estado.
+          </p>
+        </header>
+        <div class="grid">
+          <article v-for="service in businessInfo.services" :key="service.name" class="card">
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--dark">
         <div class="container">
-          <div class="section__header">
-            <p class="section__eyebrow">{{ businessInfo.services.eyebrow }}</p>
-            <h2>{{ businessInfo.services.title }}</h2>
-            <p>{{ businessInfo.services.description }}</p>
-          </div>
-          <div class="services">
-            <article v-for="service in businessInfo.services.items" :key="service.title" class="service">
-              <div class="service__icon">{{ service.icon }}</div>
-              <div>
-                <h3>{{ service.title }}</h3>
-                <p>{{ service.description }}</p>
-              </div>
+          <header class="section__header">
+            <h2>¿Por qué elegirnos?</h2>
+            <p>Detalles que marcan la diferencia en cada visita al taller.</p>
+          </header>
+          <div class="grid">
+            <article
+              v-for="feature in businessInfo.differentiators"
+              :key="feature.title"
+              class="card card--dark"
+            >
+              <h3>{{ feature.title }}</h3>
+              <p>{{ feature.detail }}</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="garantias" class="section section--guarantees">
-        <div class="container guarantees">
-          <div>
-            <p class="section__eyebrow">{{ businessInfo.guarantees.eyebrow }}</p>
-            <h2>{{ businessInfo.guarantees.title }}</h2>
-            <p>{{ businessInfo.guarantees.description }}</p>
-          </div>
-          <div class="guarantees__list">
-            <article v-for="item in businessInfo.guarantees.items" :key="item.title">
-              <h3>{{ item.title }}</h3>
-              <p>{{ item.detail }}</p>
-            </article>
-          </div>
+      <section class="section container">
+        <header class="section__header">
+          <h2>Opiniones reales</h2>
+          <p>Clientes que confían en nuestro equipo para mantener sus vehículos impecables.</p>
+        </header>
+        <div class="testimonials">
+          <figure v-for="testimonial in businessInfo.testimonials" :key="testimonial.author">
+            <blockquote>“{{ testimonial.quote }}”</blockquote>
+            <figcaption>— {{ testimonial.author }}</figcaption>
+          </figure>
         </div>
       </section>
 
-      <section id="mantenimiento" class="section section--maintenance">
-        <div class="container maintenance">
-          <div>
-            <p class="section__eyebrow">{{ businessInfo.maintenance.eyebrow }}</p>
-            <h2>{{ businessInfo.maintenance.title }}</h2>
-            <p>{{ businessInfo.maintenance.description }}</p>
-          </div>
-          <ul>
-            <li v-for="step in businessInfo.maintenance.steps" :key="step.title">
-              <span>{{ step.number }}</span>
-              <div>
-                <h3>{{ step.title }}</h3>
-                <p>{{ step.detail }}</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="opiniones" class="section section--reviews">
-        <div class="container">
-          <div class="section__header">
-            <p class="section__eyebrow">{{ businessInfo.reviews.eyebrow }}</p>
-            <h2>{{ businessInfo.reviews.title }}</h2>
-          </div>
-          <div class="reviews">
-            <article v-for="review in businessInfo.reviews.items" :key="review.author">
-              <p>“{{ review.quote }}”</p>
-              <footer>
-                <strong>{{ review.author }}</strong>
-                <span>{{ review.vehicle }}</span>
-              </footer>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="contacto" class="section section--cta">
+      <section id="contacto" class="section section--accent">
         <div class="container cta">
           <div>
-            <p class="section__eyebrow">{{ businessInfo.cta.eyebrow }}</p>
             <h2>{{ businessInfo.cta.title }}</h2>
             <p>{{ businessInfo.cta.description }}</p>
           </div>
-          <div class="cta__actions">
-            <a class="btn btn--primary" :href="`tel:${businessInfo.contact.phone}`">{{ businessInfo.cta.primary }}</a>
-            <a class="btn btn--ghost" :href="`mailto:${businessInfo.contact.email}`">{{ businessInfo.cta.secondary }}</a>
-          </div>
+          <a class="btn btn--surface" :href="`tel:${businessInfo.contact.phone}`">
+            {{ businessInfo.cta.button }}
+          </a>
         </div>
       </section>
     </main>
@@ -147,19 +119,14 @@ const logo = computed(() => new URL('./assets/logo.svg', import.meta.url).href);
     <footer class="footer">
       <div class="container footer__content">
         <div>
-          <img :src="logo" :alt="businessInfo.name" />
+          <img class="footer__logo" :src="logo" :alt="`${businessInfo.name} logo`" />
           <p>{{ businessInfo.tagline }}</p>
         </div>
-        <div>
-          <h3>Visítanos</h3>
-          <p>{{ businessInfo.contact.address }}</p>
-          <p>{{ businessInfo.contact.schedule }}</p>
-        </div>
-        <div>
-          <h3>Contacto</h3>
-          <a :href="`tel:${businessInfo.contact.phone}`">{{ businessInfo.contact.phone }}</a>
-          <a :href="`mailto:${businessInfo.contact.email}`">{{ businessInfo.contact.email }}</a>
-        </div>
+        <ul>
+          <li>{{ businessInfo.contact.address }}</li>
+          <li>{{ businessInfo.contact.phone }}</li>
+          <li>{{ businessInfo.contact.email }}</li>
+        </ul>
       </div>
       <p class="footer__legal">© {{ new Date().getFullYear() }} {{ businessInfo.name }}. Todos los derechos reservados.</p>
     </footer>
@@ -169,143 +136,115 @@ const logo = computed(() => new URL('./assets/logo.svg', import.meta.url).href);
 <style scoped>
 .page {
   background: var(--color-background);
-  color: var(--color-text);
-  font-family: var(--font-family);
 }
 
 .container {
-  width: min(1140px, 92vw);
+  width: min(1100px, 92vw);
   margin: 0 auto;
 }
 
 .hero {
-  background: var(--color-hero);
+  position: relative;
+  padding: 6rem 0;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
   color: #fff;
-  padding: 2.5rem 0 4.5rem;
+  overflow: hidden;
 }
 
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 2.5rem;
-}
-
-.nav__brand {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: inherit;
-}
-
-.nav__brand img {
-  width: 54px;
-  height: 54px;
-}
-
-.nav__brand span {
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.nav__brand small {
-  display: block;
-  font-size: 0.75rem;
-  opacity: 0.7;
-}
-
-.nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  font-weight: 500;
-}
-
-.nav__cta {
-  color: var(--color-accent);
-  font-weight: 700;
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(249, 115, 22, 0.35), transparent 55%);
+  opacity: 0.8;
 }
 
 .hero__content {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 3rem;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: center;
 }
 
-.hero__text h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2.8rem, 4.5vw, 3.8rem);
-  margin-bottom: 1.5rem;
+.hero__logo {
+  width: 160px;
+  filter: drop-shadow(0 12px 24px rgba(15, 23, 42, 0.35));
+}
+
+.hero__tagline {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   line-height: 1.1;
+  margin: 1.5rem 0 1rem;
 }
 
-.hero__eyebrow {
-  letter-spacing: 0.4em;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 1.5rem;
+.hero__subtitle {
+  font-size: 1.1rem;
+  max-width: 32rem;
+  opacity: 0.9;
 }
 
 .hero__actions {
-  margin: 2rem 0 1.5rem;
   display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
-}
-
-.hero__badges {
-  list-style: none;
-  display: flex;
+  margin: 2rem 0;
   flex-wrap: wrap;
-  gap: 0.8rem;
 }
 
-.hero__badges li {
-  background: rgba(0, 0, 0, 0.45);
-  border-radius: 999px;
-  padding: 0.5rem 1.1rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
+.hero__actions .btn {
+  min-width: 180px;
+}
+
+.hero__highlights {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.hero__highlights li {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(6px);
 }
 
 .hero__card {
-  background: #101012;
-  border-radius: 24px;
-  padding: 2.5rem;
-  display: grid;
-  gap: 1.5rem;
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2.5rem 2rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.35);
 }
 
 .hero__card h2 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
 }
 
-.hero__slots {
+.hero__card ul {
+  list-style: none;
   display: grid;
-  gap: 1rem;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
 }
 
-.hero__slots div {
-  display: flex;
+.hero__card li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.75rem;
   padding: 0.75rem 1rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.hero__slots span {
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
-
-.hero__slots strong {
-  font-size: 1.2rem;
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.4);
 }
 
 .section {
@@ -313,212 +252,147 @@ const logo = computed(() => new URL('./assets/logo.svg', import.meta.url).href);
 }
 
 .section__header {
-  max-width: 48rem;
-  margin: 0 auto 3rem;
   text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3rem;
 }
 
-.section__eyebrow {
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  color: var(--color-accent);
-  margin-bottom: 1rem;
+.section__header h2 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  color: var(--color-secondary);
 }
 
-.section--services {
-  background: #fff;
+.section__header p {
+  color: rgba(15, 23, 42, 0.75);
 }
 
-.services {
+.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-.service {
-  background: var(--color-service-card);
-  border-radius: 20px;
+.card {
+  background: var(--color-surface);
+  border-radius: 1.25rem;
   padding: 2rem;
-  display: grid;
-  gap: 1rem;
-  box-shadow: 0 15px 32px rgba(17, 17, 17, 0.1);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.6);
 }
 
-.service__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: var(--color-accent);
-  display: grid;
-  place-items: center;
-  font-size: 1.5rem;
-  color: #000;
+.card h3 {
+  color: var(--color-secondary);
+  margin-bottom: 0.75rem;
 }
 
-.section--guarantees {
-  background: var(--color-guarantees-bg);
+.card--dark {
+  background: rgba(15, 23, 42, 0.85);
+  color: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.3);
 }
 
-.guarantees {
+.section--dark {
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+  color: #f8fafc;
+}
+
+.section--dark .section__header p {
+  color: rgba(248, 250, 252, 0.75);
+}
+
+.testimonials {
   display: grid;
+  gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  align-items: start;
 }
 
-.guarantees__list {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.guarantees__list article {
-  background: #fff;
-  border-radius: 16px;
-  padding: 1.8rem;
-  box-shadow: 0 18px 32px rgba(14, 14, 14, 0.12);
-}
-
-.section--maintenance {
-  background: #fff;
-}
-
-.maintenance {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-}
-
-.maintenance ul {
-  list-style: none;
-  display: grid;
-  gap: 1.5rem;
-}
-
-.maintenance li {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.5rem;
-  align-items: start;
-}
-
-.maintenance span {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: var(--color-accent);
-  color: #000;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-}
-
-.section--reviews {
-  background: var(--color-reviews-bg);
-}
-
-.reviews {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-
-.reviews article {
-  background: #fff;
-  border-radius: 16px;
+.testimonials figure {
+  background: var(--color-surface);
   padding: 2rem;
-  display: grid;
-  gap: 1rem;
-  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 }
 
-.reviews footer {
-  display: grid;
-  gap: 0.2rem;
-  color: var(--color-text-muted);
+.testimonials blockquote {
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+  color: var(--color-secondary);
 }
 
-.section--cta {
-  background: var(--color-hero);
-  color: #fff;
+.section--accent {
+  background: var(--color-accent);
+  color: #0f172a;
 }
 
 .cta {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 2rem;
+  align-items: start;
 }
 
-.cta__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+@media (min-width: 768px) {
+  .cta {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.85rem 1.9rem;
+  padding: 0.85rem 1.75rem;
   border-radius: 999px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-weight: 600;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.15);
 }
 
 .btn--primary {
   background: var(--color-accent);
-  color: #000;
+  color: var(--color-secondary);
+  box-shadow: 0 18px 30px rgba(249, 115, 22, 0.35);
 }
 
 .btn--ghost {
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
   color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
 .btn--surface {
-  background: var(--color-accent);
-  color: #000;
+  background: var(--color-surface);
+  color: var(--color-secondary);
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.15);
 }
 
 .footer {
-  background: #0a0a0a;
-  color: #fff;
+  background: var(--color-secondary);
+  color: rgba(248, 250, 252, 0.85);
   padding: 3rem 0 2rem;
 }
 
 .footer__content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  align-items: center;
 }
 
-.footer img {
-  width: 58px;
-}
-
-.footer a {
-  color: var(--color-accent);
+.footer__logo {
+  width: 140px;
+  margin-bottom: 1rem;
 }
 
 .footer__legal {
-  margin-top: 2rem;
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.85rem;
-}
-
-@media (max-width: 720px) {
-  .nav ul {
-    display: none;
-  }
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: rgba(248, 250, 252, 0.6);
 }
 </style>

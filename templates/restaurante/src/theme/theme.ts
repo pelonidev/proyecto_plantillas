@@ -1,17 +1,13 @@
 const theme = {
   cssVariables: {
-    'color-primary': '#0e2a47',
-    'color-secondary': '#091a2c',
-    'color-accent': '#cda34f',
-    'color-background': '#f4f7fb',
-    'color-background-soft': '#eef2f7',
+    'color-primary': '#1b4332',
+    'color-secondary': '#081c15',
+    'color-accent': '#ffd166',
+    'color-background': '#f6fff5',
     'color-surface': '#ffffff',
-    'color-muted': '#9fb4c9',
-    'color-muted-text': '#5f738a',
-    'color-text': '#12263a',
-    'color-footer': '#071321',
-    'font-family': "'Montserrat', 'Inter', sans-serif",
-    'font-display': "'Playfair Display', serif"
+    'color-muted': '#d8f3dc',
+    'color-text': '#1b4332',
+    'font-family': "'Playfair Display', 'Montserrat', sans-serif"
   }
 };
 

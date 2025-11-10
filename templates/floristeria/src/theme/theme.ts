@@ -1,16 +1,13 @@
 const theme = {
   cssVariables: {
-    'color-hero': 'radial-gradient(circle at top right, rgba(242, 201, 76, 0.18), transparent 45%), #101010',
-    'color-background': '#101010',
-    'color-background-light': '#f6f3ed',
-    'color-text': '#1f1f1f',
-    'color-text-light': '#f8f4ec',
-    'color-text-muted': '#6c6256',
-    'color-accent': '#f2c94c',
-    'color-accent-dark': '#c79b18',
-    'color-service-bg': 'linear-gradient(160deg, #1f1f1f, #2b2b2b)',
-    'font-family': "'Playfair Display', 'Montserrat', sans-serif",
-    'font-display': "'Playfair Display', serif"
+    'color-primary': '#b45309',
+    'color-secondary': '#78350f',
+    'color-accent': '#f97316',
+    'color-background': '#fff7ed',
+    'color-surface': '#ffffff',
+    'color-muted': '#fed7aa',
+    'color-text': '#7c2d12',
+    'font-family': "'Quicksand', 'Poppins', sans-serif"
   }
 };
 
